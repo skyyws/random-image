@@ -12,4 +12,13 @@
         <servlet-name>RandomImageServlet</servlet-name>
         <url-pattern>/RandomImageServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>wangs.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

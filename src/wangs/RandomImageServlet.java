@@ -32,7 +32,8 @@ public class RandomImageServlet extends javax.servlet.http.HttpServlet {
         //3.画干扰线
         drawRandomLine(g);
         //4.写随机数
-        drawRandomNum((Graphics2D)g);
+        String random = drawRandomNum((Graphics2D)g);
+        request.getSession().setAttribute("checkcode", random);
         //5.图形写给浏览器
         ImageIO.write(image, "jpg", response.getOutputStream());
         //控制浏览器不要缓存
@@ -64,24 +65,26 @@ public class RandomImageServlet extends javax.servlet.http.HttpServlet {
 
     }
 
-    private void drawRandomNum(Graphics2D g) {
+    private String drawRandomNum(Graphics2D g) {
         g.setColor(Color.RED);
         g.setFont(new Font("宋体", Font.BOLD, 20));
 
         String base = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
+        StringBuffer sb = new StringBuffer();
         int x = 5;
         for (int i = 0; i < 4; i++) {
             //保证每个字的旋转角度都在30°以内
             int degree = new Random().nextInt() % 30;
             String ch = base.charAt(new Random().nextInt(base.length())) + "";
+            sb.append(ch);
             g.rotate(degree*Math.PI/180, x, 20); //设置旋转角度
             g.drawString(ch, x, 20);
             //恢复初始的正位置
             g.rotate(-degree*Math.PI/180, x, 20);
             x += 30;
         }
-
+        return sb.toString();
     }
 
 
